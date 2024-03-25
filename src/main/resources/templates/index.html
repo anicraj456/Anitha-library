@@ -1,9 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/"><head>
-   <meta charset="UTF-8">
-   <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<h1>Learner's Library</h1>
 
+ <header th:replace="fragments :: header"></header>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{/login}">Login</a>
+            <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>
+        </li>
+    </ul>
+</div>
 </body>
 </html>
