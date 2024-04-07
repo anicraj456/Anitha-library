@@ -4,11 +4,27 @@
 <body>
 <header th:replace="toolbar :: header"></header>
 <div class="job-listing">
-    <p th:text="${book.id}"></p>
-    <p th:text="${book.name}"></p>
-    <p th:text="${book.authorName}"></p>
-    <p th:text="${book.genre}"></p>
-
+    <table class="table table-striped">
+        <tr>
+            <th>Book ID</th>
+            <th>Book Name</th>
+            <th>Author Name</th>
+            <th>Genre</th>
+        </tr>
+        <td class="table-success">
+            <p th:text="${book.id}"></p>
+        </td>
+        <td class="table-success">
+        <p th:text="${book.name}"></p>
+        </td>
+        <td class="table-success">
+        <p th:text="${book.authorName}"></p>
+        </td>
+        <td class="table-success">
+        <p th:text="${book.genre}"></p>
+        </td>
+    </table>
+    <p> Book took by this Students</p>
     <table class="table table-striped">
         <tr>
             <th>Student First Name</th>
