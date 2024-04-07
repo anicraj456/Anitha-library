@@ -47,7 +47,8 @@ public class AuthenticationController {
 
     @GetMapping("/index")
     public String home(){
-        return "index";
+
+        return "user/index";
     }
 
 
@@ -56,14 +57,14 @@ public class AuthenticationController {
     @GetMapping("/login")
     public String login(){
 
-        return "login";
+        return "user/login";
     }
 
     // handler method to handle landing page request
 
     @GetMapping("/landing")
     public String landing(){
-        return "homepage";
+        return "user/homepage";
     }
 
     // handler method to handle user registration form request
@@ -73,7 +74,7 @@ public class AuthenticationController {
         // creates model object to store form data
         UserDto user = new UserDto();
         model.addAttribute("user", user);
-        return "register";
+        return "user/register";
     }
 
     // handler method to handle user registration form submit request
@@ -99,7 +100,7 @@ public class AuthenticationController {
 
         if(result.hasErrors()){
             model.addAttribute("user", userDto);
-            return "/register";
+            return "user/register";
         }
 
         //this save all details to user
@@ -133,7 +134,8 @@ public class AuthenticationController {
 
     @GetMapping("/forgot_password")
     public String showForgotPasswordForm() {
-        return "forgot_password";
+
+        return "user/forgot_password";
     }
 
     // handler method to handle forgot password form submit request
@@ -157,7 +159,7 @@ public class AuthenticationController {
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
         }
-        return "forgot_password";
+        return "user/forgot_password";
     }
 
 
@@ -214,7 +216,7 @@ public class AuthenticationController {
             model.addAttribute("message", "Invalid Token");
             return "message";
         }
-        return "reset_password";
+        return "user/reset_password";
     }
 
     // handler method to handle Reset password form submit request

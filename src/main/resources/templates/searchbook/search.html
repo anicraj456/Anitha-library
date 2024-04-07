@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="toolbar :: head"></head>
+<body>
+<header th:replace="toolbar :: header"></header>
+<div class="container">
+    <!-- <h1 th:text="${#strings.capitalizeWords(title)}"></h1-->
+     <form th:action="@{/search/results}" method = "post">
+         <h2>Search by:</h2>
+         <p>
+             <span th:each="column : ${columns}">
+                 <input
+                         type="radio"
+                         name="searchType"
+                         th:id="${column.key}"
+                         th:value="${column.key}"
+                         th:checked="${column.key == 'all'}"/>
+                 <label th:for="${column.key}" th:text="${column.value}"></label>
+             </span>
+         </p>
+
+         <p>
+             <label for="searchTerm">Keyword:</label>
+             <input type="text" name="searchTerm" id="searchTerm" />
+         </p>
+
+         <input type="submit" value="Search" />
+     </form>
+
+     <hr />
+
+     <div class="container">
+         <table class="table table-striped">
+             <tr>
+                 <th>Book Name</th>
+                 <th>Author Name</th>
+                 <th>Genre</th>
+                 <th>Action</th>
+             </tr>
+             <tr class="table-danger" th:each="book : ${books}">
+              <td class="table-success">
+                 <p>
+                     <a th:href="@{'/books/view/' + ${book.id}}"th:text="${book.name}"></a>
+                 </p> </td>
+                 <td><p th:text="${book.authorName}">
+                 </p></td>
+                 <td><p th:text="${book.genre}">
+                 </p></td>
+                 <td><button type="submit" class="btn btn-primary" >HOLD</button>
+             </td>
+             </td>
+         </tr>
+     </table>
+
+     </div>
+ </div>
+ </body>
+ </html>

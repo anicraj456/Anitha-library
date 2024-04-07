@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="toolbar :: head"></head>
+<body>
+<header th:replace="toolbar :: header"></header>
+<div class="job-listing">
+    <p th:text="${student.firstname}"></p>
+    <p th:text="${student.lastname}"></p>
+    <p th:text="${student.contactEmail}"></p>
+</div>
+</body>
+</html>

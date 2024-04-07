@@ -31,7 +31,14 @@ public class SpringSecurity {
                                         .requestMatchers("/forgot_password/**").permitAll()
                                         .requestMatchers("/reset_password").permitAll()
                                         .requestMatchers("/index").permitAll()
-                                        .requestMatchers("/landing").hasRole("ADMIN")
+                                        .requestMatchers("/landing/**").hasRole("ADMIN")
+                                        .requestMatchers("/search/**").hasRole("ADMIN")
+                                        .requestMatchers("/books/**").hasRole("ADMIN")
+                                        .requestMatchers("/student/**").hasRole("ADMIN")
+                                        .requestMatchers("/bookmanagement/**").hasRole("ADMIN")
+                                        .requestMatchers("/studentmanagement/**").hasRole("ADMIN")
+
+
                         //.requestMatchers("/add-student/**").hasRole("ADMIN")
                         //.requestMatchers("/users").permitAll()
                 ).formLogin(

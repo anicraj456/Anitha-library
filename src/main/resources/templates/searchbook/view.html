@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="toolbar :: head"></head>
+<body>
+<header th:replace="toolbar :: header"></header>
+<div class="job-listing">
+    <p th:text="${book.id}"></p>
+    <p th:text="${book.name}"></p>
+    <p th:text="${book.authorName}"></p>
+    <p th:text="${book.genre}"></p>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Student First Name</th>
+            <th>Student Last Name</th>
+            <th>Email</th>
+        </tr>
+        <tr class="table-danger" th:each="student : ${studentsThatHasThisBook}">
+            <td class="table-success">
+                <p th:text="${student.firstname}">
+                </p>
+            </td>
+            <td>
+                <p th:text="${student.lastname}">
+                </p>
+            </td>
+            <td>
+                <p th:text="${student.contactEmail}">
+                </p>
+            </td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>
