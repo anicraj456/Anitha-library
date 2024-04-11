@@ -3,8 +3,7 @@ package org.launchcode.anithalibrary.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
-import java.io.Serializable;
-
+ import java.io.Serializable;
 @Embeddable
 public class StudentBookId implements Serializable {
 
