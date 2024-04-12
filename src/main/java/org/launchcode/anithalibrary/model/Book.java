@@ -1,12 +1,19 @@
 package org.launchcode.anithalibrary.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Book extends AbstractEntity{
+
     @Size(max = 500, message = "Description too long!")
     private String description;
+
 
     private String authorName;
 
@@ -17,6 +24,21 @@ public class Book extends AbstractEntity{
     private String genre;
 
     private int copies;
+
+    private int availableCopiesToIssue;
+
+    @OneToMany
+    @JoinColumn(name="book_id")
+    private List<BookCheckout> bookCheckouts = new ArrayList<>();
+
+    public int getAvailableCopiesToIssue() {
+        return availableCopiesToIssue;
+    }
+
+    public void setAvailableCopiesToIssue(int availableCopiesToIssue) {
+        this.availableCopiesToIssue = availableCopiesToIssue;
+    }
+
 
     public Book() {
     }
@@ -67,5 +89,13 @@ public class Book extends AbstractEntity{
 
     public void setCopies(int copies) {
         this.copies = copies;
+    }
+
+    public List<BookCheckout> getBookCheckouts() {
+        return bookCheckouts;
+    }
+
+    public void setBookCheckouts(List<BookCheckout> bookCheckouts) {
+        this.bookCheckouts = bookCheckouts;
     }
 }

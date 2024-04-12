@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<!--head th:replace="fragments :: head"></head-->
+<body class="container">
+
+<!--header th:replace="fragments :: header"></header-->
+
+<p th:text="${errorMsg}" style="color:red;"></p>
+
+<form
+        method="post">
+    <div class="form-group">
+        <input th:field="${book.id}" type="hidden" class="form-control"/>
+        <input th:field="${book.availableCopiesToIssue}" type="hidden" class="form-control"/>
+        <label>Name
+            <input th:field="${book.name}" class="form-control">
+        </label>
+        <p class="error" th:errors="${book.name}"></p>
+    </div>
+    <div class="form-group">
+        <label>Description
+            <input th:field="${book.description}" class="form-control">
+        </label>
+        <p class="error" th:errors="${book.description}"></p>
+    </div>
+    <div class="form-group">
+        <label>Author Name
+            <input th:field="${book.authorName}" class="form-control">
+        </label>
+        <p class="error" th:errors="${book.authorName}"></p>
+    </div>
+    <div class="form-group">
+        <label>Publishing Year
+            <input th:field="${book.publishingYear}" class="form-control">
+        </label>
+        <p class="error" th:errors="${book.publishingYear}"></p>
+    </div>
+    <div class="form-group">
+        <label>Price
+            <input th:field="${book.price}" class="form-control">
+        </label>
+        <p class="error" th:errors="${book.price}"></p>
+    </div>
+    <div class="form-group">
+        <label>Genre
+            <input th:field="${book.genre}" class="form-control">
+        </label>
+        <p class="error" th:errors="${book.genre}"></p>
+    </div>
+    <div class="form-group">
+        <label>Copies
+            <input th:field="${book.copies}" class="form-control" readonly>
+        </label>
+        <p class="error" th:errors="${book.copies}"></p>
+    </div>
+    <div class="form-group">
+        <label>No of books to add
+            <input th:field="${booksInventory.booksToAdd}" class="form-control" >
+        </label>
+    </div>
+    <div class="form-group">
+        <label>No of books to remove
+            <input th:field="${booksInventory.booksToRemove}" class="form-control" >
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="update" class="btn btn-success">
+    </div>
+</form>
+
+</body>
+</html>

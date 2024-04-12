@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<!--head th:replace="~{fragments :: head}">
+</head-->
+<body>
+
+<!--div th:replace="~{fragments :: page-header}"></div-->
+
+<p th:unless="${books} and ${books.size()}">no books!</p>
+
+<div class="container body-content">
+    <h2>Books</h2>
+    <ul>
+        <li th:each="book : ${books}">
+            <div><a th:href="@{'/books/detail?bookId=' + ${book.id}}" th:text="${book.name}"></a>
+                <a th:href="@{'/books/update?bookId=' + ${book.id}}" >update</a>
+                <a th:href="@{'/books/delete?bookId=' + ${book.id}}" >delete</a>
+                <a th:href="@{'/books/checkout?bookId=' + ${book.id}}" >Checkout</a>
+            </div>
+
+        </li>
+
+    </ul>
+    <div>
+        <a th:href="@{'/books/add'}">Add Book</a>
+    </div>
+
+</div>
+
+</body>
+</html>

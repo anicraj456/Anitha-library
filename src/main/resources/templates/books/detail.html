@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<!--head th:replace="~{fragments :: head}"></head-->
+<body class="container">
+
+<!--header th:replace="~{fragments :: header}"></header-->
+
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <td th:text="${book.name}"></td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td th:text="${book.description}"></td>
+    </tr>
+    <tr>
+        <th>Author Name</th>
+        <td th:text="${book.authorName}"></td>
+    </tr>
+    <tr>
+        <th>Publishing Year</th>
+        <td th:text="${book.publishingYear}"></td>
+    </tr>
+    <tr>
+        <th>Price</th>
+        <td th:text="${book.price}"></td>
+    </tr>
+    <tr>
+        <th>Genre</th>
+        <td th:text="${book.genre}"></td>
+    </tr>
+    <tr>
+        <th>Copies</th>
+        <td th:text="${book.copies}"></td>
+    </tr>
+
+</table>
+<div>
+    <a th:href="@{'/books/'}">Back To Books</a>
+</div>
+
+</body>
+</html>
