@@ -6,8 +6,15 @@
 <!--header th:replace="fragments :: header"></header-->
 
 <p th:text="${errorMsg}" style="color:red;"></p>
+<!--/* This div code need to be added for redirecting the page */-->
+<div th:if="${param.success}">
+    <div class="alert alert-info">
+        You have successfully added a book!
+    </div>
+</div>
+<!--/* action is missing so added action */-->
 
-<form method="post">
+<form method="post" th:action="@{/books/add/save}" >
     <div class="form-group">
         <label>Name
             <input th:field="${book.name}" class="form-control">

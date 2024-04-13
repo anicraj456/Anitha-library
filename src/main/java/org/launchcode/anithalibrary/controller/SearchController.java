@@ -68,7 +68,7 @@ public class SearchController {
             Book selectedBook = book.get();
             model.addAttribute("book", selectedBook);
             // to check which student took that book 71 -79
-           /* List<Student> studentsThatHasThisBook = new ArrayList<>();
+            List<Student> studentsThatHasThisBook = new ArrayList<>();
             List<StudentBook> studentBookList = (List<StudentBook>)studentBookRepository.findAll();
             for(int i=0;i<studentBookList.size();i++){
                StudentBook studentBook = studentBookList.get(i);
@@ -76,7 +76,7 @@ public class SearchController {
                    studentsThatHasThisBook.add(studentBook.getStudent());
                 }
             }
-            model.addAttribute("studentsThatHasThisBook", studentsThatHasThisBook);*/
+            model.addAttribute("studentsThatHasThisBook", studentsThatHasThisBook);
         }//else throw error
         return "searchbook/view";
     }

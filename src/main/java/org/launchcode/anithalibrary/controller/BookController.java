@@ -31,7 +31,7 @@ public class BookController {
         return "books/index";
     }
 
-    @GetMapping("add") //http://localhost:8080/books/add
+    @GetMapping("/add") //http://localhost:8080/books/add
     public String displayAddBookForm(Model model) {
 
         model.addAttribute(new Book());
@@ -39,7 +39,8 @@ public class BookController {
         return "books/add";
     }
 
-    @PostMapping("add")  //http://localhost:8080/books/add
+    //need to change the route to different spring wont able same route for get and post .
+    @PostMapping("/add/save")  //http://localhost:8080/books/add
     public String processAddBookForm(@ModelAttribute @Valid Book newBook,
                                      Errors errors, Model model) {
 
@@ -47,15 +48,13 @@ public class BookController {
             return "books/add";
         }
         newBook.setAvailableCopiesToIssue(newBook.getCopies());
-
         bookRepository.save(newBook);
-
-
-        return "redirect:";
+        //return "books/add";
+        //added redirect route to success message
+        return "redirect:/books/add?success";
     }
-
-    @GetMapping("update") //http://localhost:8080/books/update?bookId=xx
-    public String displayUpdateBookForm(@RequestParam Integer bookId, Model model) {
+    @GetMapping("/update") //http://localhost:8080/books/update?bookId=xx
+    public String displayUpdateBookForm(@RequestParam Integer bookId, Model model){
         Optional<Book> result = bookRepository.findById(bookId);
         Book book = result.get();
         model.addAttribute(book);
@@ -63,36 +62,35 @@ public class BookController {
 
         return "books/update";
     }
-
-    @PostMapping("update") //http://localhost:8080/books/update
-    public String processUpdateBookForm(@ModelAttribute @Valid Book book, @ModelAttribute @Valid BooksInventory booksInventory,
+    @PostMapping("/update/save") //http://localhost:8080/books/update
+    public String processUpdateBookForm(@ModelAttribute @Valid Book book,@ModelAttribute @Valid BooksInventory booksInventory,
                                         Errors errors,
                                         Model model) {
 
 
         if (!errors.hasErrors()) {
 
-            if (booksInventory.getBooksToAdd() > 0) {
-                int copies = book.getCopies() + booksInventory.getBooksToAdd();
-                int availableCopies = book.getAvailableCopiesToIssue() + booksInventory.getBooksToAdd();
+            if(booksInventory.getBooksToAdd()>0) {
+                int copies=book.getCopies()+ booksInventory.getBooksToAdd();
+                int availableCopies=book.getAvailableCopiesToIssue()+booksInventory.getBooksToAdd();
 
                 book.setCopies(copies);
                 book.setAvailableCopiesToIssue(availableCopies);
             }
-            if (booksInventory.getBooksToRemove() > 0) {
-                int copies = book.getCopies() - booksInventory.getBooksToRemove();
+            if(booksInventory.getBooksToRemove()>0){
+                int copies= book.getCopies()- booksInventory.getBooksToRemove();
 
-                int availableCopies = book.getAvailableCopiesToIssue() - booksInventory.getBooksToRemove();
+                int availableCopies= book.getAvailableCopiesToIssue()- booksInventory.getBooksToRemove();
                 book.setCopies(copies);
                 book.setAvailableCopiesToIssue(availableCopies);
             }
             bookRepository.save(book);
 
-            return "redirect:detail?bookId=" + book.getId();
+            return "redirect:/books/view/"+book.getId();
         }
+        //return "redirect:update";
+        return "redirect:/books/update";
 
-
-        return "redirect:update";
     }
 
     @GetMapping("detail") //http://localhost:8080/books/detail?bookId=xx
