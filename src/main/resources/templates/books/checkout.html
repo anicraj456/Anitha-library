@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<!--head th:replace="fragments :: head"></head-->
-<body class="container">
-
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{toolbar :: head}"></head>
+<body>
+<header th:replace="~{toolbar :: header}"></header>
+<br />
 <!--header th:replace="fragments :: header"></header-->
 
 <p th:text="${errorMsg}" style="color:red;"></p>
@@ -33,5 +34,8 @@
         <input type="submit" value="Submit" class="btn btn-success">
     </div>
 </form>
+<div>
+    <a th:href="@{'/books/'}">Back To Books</a>
+</div>
 </body>
 </html>

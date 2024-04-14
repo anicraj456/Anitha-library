@@ -1,31 +1,95 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/">
-<!--head th:replace="~{fragments :: head}">
-</head-->
+<head th:replace="~{toolbar :: head}"></head>
 <body>
+<header th:replace="~{toolbar :: header}"></header>
+<div class="container">
+    <!-- <h1 th:text="${#strings.capitalizeWords(title)}"></h1-->
+    <form th:action="@{/books/search/results}" method = "post">
+        <h2>Search Book by:</h2>
+        <p>
+             <span th:each="column : ${columns}">
+                 <input
+                         type="radio"
+                         name="searchType"
+                         th:id="${column.key}"
+                         th:value="${column.key}"
+                         th:checked="${column.key == 'all'}"/>
+                 <label th:for="${column.key}" th:text="${column.value}"></label>
+             </span>
+        </p>
 
-<!--div th:replace="~{fragments :: page-header}"></div-->
+        <p>
+            <label for="searchTerm">Keyword:</label>
+            <input type="text" name="searchTerm" id="searchTerm" />
+        </p>
 
-<p th:unless="${books} and ${books.size()}">no books!</p>
+        <input type="submit" value="Search" />
+    </form>
 
-<div class="container body-content">
-    <h2>Books</h2>
-    <ul>
-        <li th:each="book : ${books}">
-            <div><a th:href="@{'/books/detail?bookId=' + ${book.id}}" th:text="${book.name}"></a>
-                <a th:href="@{'/books/update?bookId=' + ${book.id}}" >update</a>
-                <a th:href="@{'/books/delete?bookId=' + ${book.id}}" >delete</a>
-                <a th:href="@{'/books/checkout?bookId=' + ${book.id}}" >Checkout</a>
-            </div>
-
-        </li>
-
-    </ul>
-    <div>
-        <a th:href="@{'/books/add'}">Add Book</a>
+    <hr />
+     <div class="container">
+            <h2>Books</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Book Name</th>
+                <th>Author Name</th>
+                <th>Genre</th>
+                <th>Action</th>
+                <th>Action</th>
+                <th>Action</th>
+                <th>Action</th>
+            </tr>
+            <tr class="table-danger" th:each="book : ${books}">
+             <td class="table-success">
+                <p>
+                    <a th:href="@{'/books/detail?bookId=' + ${book.id}}" th:text="${book.name}"></a>
+                </p>
+             </td>
+                <td>
+                <p>
+                   <a th:href="@{'/books/detail?bookId=' + ${book.id}}" th:text="${book.authorName}"></a>
+                </p>
+                </td>
+                <td>
+                <p>
+                    <a th:href="@{'/books/detail?bookId=' + ${book.id}}" th:text="${book.genre}"></a>
+                </p>
+                </td>
+                <td><p><a th:href="@{'/books/update?bookId=' + ${book.id}}"><button class="btn btn-primary" type="submit">Update</button></a></p></td>
+                <td><p><a th:href="@{'/books/delete?bookId=' + ${book.id}}"><button class="btn btn-primary" type="submit">Delete</button></a></p></td>
+                <td><p><a th:href="@{'/books/checkout?bookId=' + ${book.id}}"><button class="btn btn-primary" type="submit">Checkout</button></a></p></td>
+                <td><button class="btn btn-primary" type="submit">HOLD</button>
+            </td>
+            </td>
+        </tr>
+    </table>
     </div>
+   <div class="container">
+       <form th:action="@{/books/add}" method = "get">
+           <input type="submit" value="Add Book" />
+       </form>
+   </div>
 
+    <!--<div class="container body-content">
+        <h2>Books</h2>
+        <table>
+        <ul>
+            <li th:each="book : ${books}">
+                <div><a th:href="@{'/books/detail?bookId=' + ${book.id}}" th:text="${book.name}"></a>
+                    <a th:href="@{'/books/detail?bookId=' + ${book.id}}" th:text="${book.authorName}"></a>
+                    <a th:href="@{'/books/detail?bookId=' + ${book.id}}" th:text="${book.genre}"></a>
+                    <a th:href="@{'/books/update?bookId=' + ${book.id}}" >update</a>
+                    <a th:href="@{'/books/delete?bookId=' + ${book.id}}" >delete</a>
+                    <a th:href="@{'/books/checkout?bookId=' + ${book.id}}" >Checkout</a>
+                </div>
+            </li>
+        </ul>
+        </table>
+        <div>
+            <a th:href="@{'/books/add'}">Add Book</a>
+        </div>
+    </div>-->
 </div>
-
 </body>
 </html>

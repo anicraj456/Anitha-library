@@ -3,6 +3,7 @@ package org.launchcode.anithalibrary.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
@@ -13,7 +14,9 @@ public class Book extends AbstractEntity{
 
     @Size(max = 500, message = "Description too long!")
     private String description;
-
+    @NotBlank(message = "Name is required")
+    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
+    private String name;
 
     private String authorName;
 
@@ -97,5 +100,13 @@ public class Book extends AbstractEntity{
 
     public void setBookCheckouts(List<BookCheckout> bookCheckouts) {
         this.bookCheckouts = bookCheckouts;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -5,6 +5,7 @@ import org.launchcode.anithalibrary.data.BookCheckoutRepository;
 import org.launchcode.anithalibrary.data.BookRepository;
 import org.launchcode.anithalibrary.model.Book;
 import org.launchcode.anithalibrary.model.BookCheckout;
+import org.launchcode.anithalibrary.model.BookData;
 import org.launchcode.anithalibrary.model.BooksInventory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
+
 
 @Controller
 @RequestMapping("books")
@@ -24,11 +28,56 @@ public class BookController {
     @Autowired
     private BookCheckoutRepository bookCheckoutRepository;
 
+    static HashMap<String, String> bookSearchOptions = new HashMap<>();
+
+    public BookController() {
+
+        bookSearchOptions.put("all", "All");
+        bookSearchOptions.put("name", "Book Name");
+        bookSearchOptions.put("authorName", "Author Name");
+        bookSearchOptions.put("genre", "Genre");
+
+    }
+
     @GetMapping("/") //http://localhost:8080/books/
     public String index(Model model) {
+        model.addAttribute("columns", bookSearchOptions);
         model.addAttribute("title", "All Books");
         model.addAttribute("books", bookRepository.findAll());
         return "books/index";
+    }
+
+    //Anitha's code for search book
+    @GetMapping("/search")
+    public String search(Model model) {
+        model.addAttribute("columns", bookSearchOptions);
+        model.addAttribute("title", "All Books");
+        model.addAttribute("books", bookRepository.findAll());
+        return "books/index";
+    }
+
+    @PostMapping("/search/results")
+    public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm){
+        Iterable<Book> books;
+        ArrayList<Book> tempBooks = (ArrayList<Book>) bookRepository.findAll();
+        books = BookData.findByColumnAndValue(searchType, searchTerm, bookRepository.findAll());
+        model.addAttribute("columns", bookSearchOptions);
+        model.addAttribute("title", "Books with " + bookSearchOptions.get(searchType) + ": " + searchTerm);
+        model.addAttribute("books", books);
+        return "books/index";
+    }
+
+    //Anitha's code for search book
+
+    @GetMapping("/books/view/{bookId}")
+    public String viewBook(@PathVariable("bookId")String bookId,Model model) {
+
+        Optional<Book> book = bookRepository.findById(Integer.valueOf(bookId));
+        if(book.isPresent()){
+            Book selectedBook = book.get();
+            model.addAttribute("book", selectedBook);
+        }//else throw error
+        return "books/view";
     }
 
     @GetMapping("/add") //http://localhost:8080/books/add
@@ -86,7 +135,7 @@ public class BookController {
             }
             bookRepository.save(book);
 
-            return "redirect:/books/view/"+book.getId();
+            return "redirect:/books/";
         }
         //return "redirect:update";
         return "redirect:/books/update";
@@ -181,4 +230,7 @@ public class BookController {
 
         return "redirect:";
     }
+
+
+
 }

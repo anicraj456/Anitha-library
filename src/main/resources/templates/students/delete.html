@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{toolbar :: head}"></head>
+<body>
+<header th:replace="~{toolbar :: header}"></header>
+<br />
+
+<!--header th:replace="fragments :: header"></header-->
+
+<form method="post">
+
+    <th:block th:each="student : ${students}">
+        <div>
+            <label>
+                <span th:text="${student.firstname}"></span>
+                <input type="checkbox" name="StudentIds" th:value="${student.id}" class="form-control">
+            </label>
+        </div><br>
+    </th:block>
+
+    <input type="submit" value="Delete" class="btn btn-danger">
+</form>
+<div>
+    <a th:href="@{'/students/'}">Back To Students</a>
+</div>
+</body>
+</html>

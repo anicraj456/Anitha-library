@@ -51,6 +51,12 @@ public class AuthenticationController {
         return "user/index";
     }
 
+    @GetMapping("/")
+    public String defaultHome(){
+
+        return "user/index";
+    }
+
 
     // handler method to handle login request
 

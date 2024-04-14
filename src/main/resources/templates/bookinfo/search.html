@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header3"></header>
+
+<form th:action="@{/booksinfo/search}" method = "post">
+    <p>
+        <label th:for="${searchTerm}">Keyword:</label>
+        <input th:type="text" name="searchTerm" value="${searchTerm}" />
+    </p>
+    <input type="submit" value="Search" />
+</form>
+
+<body>
+<ul>
+    <li th:each="book : ${books}">
+        <h2 th:text="${book.volumeInfo.title}"></h2>
+        <p th:text="${book.volumeInfo.authors}"></p>
+        <p th:text="${book.volumeInfo.description}"></p>
+    </li>
+</ul>
+</body>
+</html>

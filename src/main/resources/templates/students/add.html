@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
-<body class="container">
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="~{toolbar :: head}"></head>
+<body>
+<header th:replace="~{toolbar :: header}"></header>
 
-<header th:replace="fragments :: header1"></header>
-
+<!--header th:replace="fragments :: header"></header-->
 <form method="post">
     <div class="form-group">
         <label> First Name
-            <input th:field="${student.name}" class="form-control">
+            <input th:field="${student.firstname}" class="form-control">
         </label>
-        <p class="error" th:errors="${student.name}"></p>
+        <p class="error" th:errors="${student.firstname}"></p>
     </div>
     <div class="form-group">
         <label> Last Name
@@ -18,10 +18,19 @@
         </label>
         <p class="error" th:errors="${student.lastname}"></p>
     </div>
+    <div class="form-group">
+        <label> Contact Email
+            <input th:field="${student.contactEmail}" class="form-control">
+        </label>
+        <p class="error" th:errors="${student.contactEmail}"></p>
+    </div>
     <br>
     <div class="form-group">
         <input type="submit" value="Add" class="btn btn-success">
     </div>
 </form>
+<div>
+    <a th:href="@{'/students/'}">Back To Students</a>
+</div>
 </body>
 </html>

@@ -22,9 +22,7 @@ public abstract class AbstractEntity {
         this.id = id;
     }
 
-    @NotBlank(message = "Name is required")
-    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
-    private String name;
+
 
     @Override
     public boolean equals(Object o) {
@@ -39,12 +37,6 @@ public abstract class AbstractEntity {
         return Objects.hash(id);
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }
 

@@ -11,6 +11,7 @@
 <body>
 <header th:fragment="header">
     <h1 th:text="${title}">Learner's Library</h1>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/index}">Learner's Library</a>
@@ -21,14 +22,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/search}">Book Management</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/books/}">Book Management</a>
                 </li>
             </ul>
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/search/student}">Student Management</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/students/}">Student Management</a>
                 </li>
             </ul>
         </div>
@@ -43,5 +44,11 @@
     </div>
 </nav>
 </header>
+</body>
+</html>
+
+
+
+
 </body>
 </html>
