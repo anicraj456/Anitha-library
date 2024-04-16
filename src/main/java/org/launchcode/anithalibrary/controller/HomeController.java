@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 // Anitha: What does this do?
 public class HomeController {
-
-
     @GetMapping("/library")
     public String index () {
         return "user/index";

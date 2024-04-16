@@ -3,7 +3,6 @@ package org.launchcode.anithalibrary.controller;
 import jakarta.validation.Valid;
 import org.launchcode.anithalibrary.data.StudentRepository;
 import org.launchcode.anithalibrary.model.Book;
-import org.launchcode.anithalibrary.model.BookData;
 import org.launchcode.anithalibrary.model.Student;
 import org.launchcode.anithalibrary.model.StudentData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +54,7 @@ public class StudentController {
         }
     }
 
-    //Anitha code copied from SearchController for Student search
-
+    //Anitha code for Student search 57 to 87
     @GetMapping ("/search")
     public String displaySearchStudentForm (Model model){
         model.addAttribute("studentSearchOptions", studentSearchOptions);
@@ -64,28 +62,22 @@ public class StudentController {
         model.addAttribute("students", studentRepository.findAll());
         return "students/search";
     }
-
+    //Anitha code for Student search
     @PostMapping ("/search/results")
     public String processSearchStudent(Model model, @RequestParam String searchType, @RequestParam String searchTerm){
         Iterable<Student> students;
         ArrayList<Student> tempStudents = (ArrayList<Student>) studentRepository.findAll();
         students = StudentData.findByColumnAndValue(searchType, searchTerm, studentRepository.findAll());
         model.addAttribute("studentSearchOptions", studentSearchOptions);
-        if(searchType.equalsIgnoreCase("Email")){
-            Student student = studentRepository.findByContactEmail(searchTerm);
-            if(searchTerm.equalsIgnoreCase(student.getContactEmail())){
-                model.addAttribute("students",student);
-            }
-        }else{
-            List<Student> studentsByLastName = studentRepository.findByLastname(searchTerm);
-            model.addAttribute("students",studentsByLastName);
-        }
+        model.addAttribute("searchType",searchType);
+        model.addAttribute("searchTerm",searchTerm);
+        model.addAttribute("students",students);
+        model.addAttribute("title", "Students with " + studentSearchOptions.get(searchType) + ": " + searchTerm);
         return "students/search";
     }
-
+    //Anitha code for Student search
     @GetMapping("/detail/{studentId}")
     public String viewStudent(@PathVariable("studentId")String studentId,Model model) {
-
         Optional<Student> student = studentRepository.findById(Integer.valueOf(studentId));
         if(student.isPresent()){
             Student selectedStudent = student.get();
@@ -138,10 +130,18 @@ public class StudentController {
 
     }
 
+
+    @GetMapping ("update")
+    public String displayDeleteStudentForm (@RequestParam(required = false) Integer studentId, Model model){
+        model.addAttribute("title", "Update Student");
+        model.addAttribute("student", studentRepository.findById(studentId));
+        return "students/update";
+    }
+
     @PostMapping ("update")
-    public String updateStudents(@RequestParam(required = false) Integer studentId, @RequestParam(required = false) String studentfirstname, @RequestParam(required = false) String studentlastname, @RequestParam(required = false) String studentcontactemail, Model model) {
+    public String updateStudents(@ModelAttribute @Valid Student student, Model model) {
 //    public String updateStudent (@RequestParam(required = false) Integer studentId, Model model) {
-        Iterable<Student> students;
+        /* Iterable<Student> students;
         if (studentId == null) {
             students = studentRepository.findAll();
             model.addAttribute("students", students);
@@ -165,8 +165,10 @@ public class StudentController {
             //          studentRepository.findById(studentId).gfirstname)
             //          model.addAttribute("students", studentRepository.findById(studentId));
             //      }
-            return "redirect:/students";
-        }
+            return "redirect:/students/";
+        }*/
+        studentRepository.save(student);
+        return "redirect:/students/";
     }
 
     //    @RequestMapping("search")
@@ -187,7 +189,4 @@ public class StudentController {
         return "students/search";
 
     }
-
-
-
 }

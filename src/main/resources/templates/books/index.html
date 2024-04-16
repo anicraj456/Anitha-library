@@ -58,8 +58,8 @@
                 </td>
                 <td><p><a th:href="@{'/books/update?bookId=' + ${book.id}}"><button class="btn btn-primary" type="submit">Update</button></a></p></td>
                 <td><p><a th:href="@{'/books/delete?bookId=' + ${book.id}}"><button class="btn btn-primary" type="submit">Delete</button></a></p></td>
-                <td><p><a th:href="@{'/books/checkout?bookId=' + ${book.id}}"><button class="btn btn-primary" type="submit">Checkout</button></a></p></td>
-                <td><button class="btn btn-primary" type="submit">HOLD</button>
+                <td><p><a th:href="@{'/books/checkout/' + ${book.id}}"><button class="btn btn-primary" type="submit">Checkout</button></a></p></td>
+                <td><p><a th:href="@{'/books/hold/' + ${book.id}}"><button class="btn btn-primary" type="submit">Hold</button></a></p></td>
             </td>
             </td>
         </tr>

@@ -3,11 +3,12 @@ package org.launchcode.anithalibrary.controller;
 import jakarta.validation.Valid;
 import org.launchcode.anithalibrary.data.BookCheckoutRepository;
 import org.launchcode.anithalibrary.data.BookRepository;
-import org.launchcode.anithalibrary.model.Book;
-import org.launchcode.anithalibrary.model.BookCheckout;
-import org.launchcode.anithalibrary.model.BookData;
-import org.launchcode.anithalibrary.model.BooksInventory;
+import org.launchcode.anithalibrary.data.StudentBookRepository;
+import org.launchcode.anithalibrary.data.StudentRepository;
+import org.launchcode.anithalibrary.model.*;
+import org.launchcode.anithalibrary.model.dto.StudentBookDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -24,9 +26,11 @@ public class BookController {
 
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
     @Autowired
-    private BookCheckoutRepository bookCheckoutRepository;
+    private StudentBookRepository studentBookRepository;
 
     static HashMap<String, String> bookSearchOptions = new HashMap<>();
 
@@ -75,6 +79,7 @@ public class BookController {
         Optional<Book> book = bookRepository.findById(Integer.valueOf(bookId));
         if(book.isPresent()){
             Book selectedBook = book.get();
+            //bookCheckout.
             model.addAttribute("book", selectedBook);
         }//else throw error
         return "books/view";
@@ -148,6 +153,9 @@ public class BookController {
         Book book = result.get();
         model.addAttribute(book);
 
+        List<StudentBook> studentBook = studentBookRepository.findByBook(book);
+        model.addAttribute("studentsbybook", studentBook);
+
         return "books/detail";
     }
 
@@ -176,61 +184,102 @@ public class BookController {
         Optional<Book> result = bookRepository.findById(bookId);
         Book book = result.get();
         model.addAttribute(book);
-
         return "books/delete";
     }
 
     @PostMapping("delete") //http://localhost:8080/books/delete?bookId=xxxx
     public String processDeleteBook(@RequestParam(required = true) Integer bookId) {
-
         if (bookId != null) {
-
             bookRepository.deleteById(bookId);
         }
-
-
         return "redirect:";
     }
 
-    @GetMapping("checkout") //http://localhost:8080/books/checkout
-    public String displayCheckout(Model model) {
-        model.addAttribute(new BookCheckout());
-
+    @GetMapping("checkout/{bookId}") //http://localhost:8080/books/checkout
+    public String displayCheckout(@PathVariable("bookId")Integer bookId,Model model) {
+        Optional<Book> optionalBook = bookRepository.findById(bookId);
+        Book book = optionalBook.get();
+        StudentBookDto studentBookDto = new StudentBookDto();
+        studentBookDto.setBookId(bookId);
+        studentBookDto.setBookName(book.getName());
+        model.addAttribute("studentBookDto",studentBookDto);
+        model.addAttribute("allstudents",studentRepository.findAll());
         return "books/checkout";
     }
 
     @PostMapping("checkout") //http://localhost:8080/books/checkout?bookId=xxxx
-    public String processCheckout(@ModelAttribute @Valid BookCheckout newBookCheckout, int bookId,
+    public String processCheckout(@ModelAttribute @Valid StudentBookDto studentBookDto,
                                   Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             return "books/checkout";
         }
-
-
-        int studentId = newBookCheckout.getStudentId();
-
-        Optional<Book> result = bookRepository.findById(bookId);
+        int studentId = studentBookDto.getStudentId();
+        Optional<Book> result = bookRepository.findById(studentBookDto.getBookId());
         Book book = result.get();
-        newBookCheckout.setBook(book);
-
+        StudentBook studentBook = new StudentBook();
+        studentBook.setBook(book);
+        studentBook.setCheckOut(true);
+        Optional<Student> studentOptional = studentRepository.findById(studentId);
+        Student student = studentOptional.get();
+        StudentBookId studentBookId = new StudentBookId();
+        studentBookId.setBookId(book.getId());
+        studentBookId.setStudentId(student.getId());
+        studentBook.setId(studentBookId);
+        studentBook.setStudent(student);
+        studentBook.setIssueDate(studentBookDto.getIssueDate());
+        studentBook.setExpectedReturnDate(studentBookDto.getExpectedReturnDate());
+        studentBook.setCheckOut(true);
         int availableCopies = book.getAvailableCopiesToIssue();
-
-        if (newBookCheckout.isCheckout()) {
-            availableCopies--;
-        } else {
-
-            availableCopies++;
-        }
-        bookCheckoutRepository.save(newBookCheckout);
-
-        book.setAvailableCopiesToIssue(availableCopies);
-
+        studentBookRepository.save(studentBook);
+        book.setAvailableCopiesToIssue(availableCopies--);
         bookRepository.save(book);
-
         return "redirect:";
     }
 
+//Anitha code for hold a book
+    @GetMapping("hold/{bookId}") 
+    public String displayHold(@PathVariable("bookId")Integer bookId,Model model) {
 
+        Optional<Book> optionalBook = bookRepository.findById(bookId);
+        Book book = optionalBook.get();
+        StudentBookDto studentBookDto = new StudentBookDto();
+        studentBookDto.setBookId(bookId);
+        studentBookDto.setBookName(book.getName());
+        model.addAttribute("studentBookDto",studentBookDto);
+        model.addAttribute("allstudents",studentRepository.findAll());
+        return "books/hold";
+    }
+    //Anitha code for hold a book
+   @PostMapping("hold")
+    public String processHold(@ModelAttribute @Valid StudentBookDto studentBookDto,
+                              Errors errors, Model model) {
+       if (errors.hasErrors()) {
+           return "books/checkout";
+       }
+       int studentId = studentBookDto.getStudentId();
+       Optional<Book> result = bookRepository.findById(studentBookDto.getBookId());
+       Book book = result.get();
+       StudentBook studentBook = new StudentBook();
+       studentBook.setBook(book);
+       studentBook.setCheckOut(true);
+       Optional<Student> studentOptional = studentRepository.findById(studentId);
+       Student student = studentOptional.get();
+       StudentBookId studentBookId = new StudentBookId();
+       studentBookId.setBookId(book.getId());
+       studentBookId.setStudentId(student.getId());
+       studentBook.setId(studentBookId);
+       studentBook.setStudent(student);
+       studentBook.setBook(book);
+       studentBook.setIssueDate(studentBookDto.getIssueDate());
+       studentBook.setHeldUntilDate(studentBookDto.getHeldUntilDate());
+       studentBook.setCheckOut(false);
+       studentBook.setHold(true);
+       int availableCopies = book.getAvailableCopiesToIssue();
+       studentBookRepository.save(studentBook);
+       book.setAvailableCopiesToIssue(availableCopies--);
+       bookRepository.save(book);
+       return "redirect:";
 
+    }
 }

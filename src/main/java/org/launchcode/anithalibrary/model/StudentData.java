@@ -36,7 +36,7 @@ public class StudentData {
         String theValue="";
         if (fieldName.equals("lastname")) {
             theValue = student.getLastname();
-        } else if (fieldName.equals("contactEmail")) {
+        } else if (fieldName.equals("email")) {
             theValue = student.getContactEmail();
         }
             return theValue;

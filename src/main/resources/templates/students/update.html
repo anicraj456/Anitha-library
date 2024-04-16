@@ -6,36 +6,70 @@
 <br />
 <!--header th:replace="fragments :: header"></header-->
 <form th:action="@{/students/update}" method="post">
+
     <div class="form-group">
-        <label th:for="${studentId}">Student Id
-            <input th:type="text" name="studentId" th:value="${studentId}" />
+        <label>Student Id
+            <input th:field="${student.id}" class="form-control">
+        </label>
+        <p class="error" th:errors="${student.id}"></p>
+    </div>
+
+
+    <div class="form-group">
+        <label>Student Id
+            <input th:field="${student.firstname}" class="form-control">
+        </label>
+        <p class="error" th:errors="${student.firstname}"></p>
+    </div>
+
+
+    <div class="form-group">
+        <label>Student Id
+            <input th:field="${student.lastname}" class="form-control">
+        </label>
+        <p class="error" th:errors="${student.lastname}"></p>
+    </div>
+
+
+    <div class="form-group">
+        <label>Student Id
+            <input th:field="${student.contactEmail}" class="form-control">
+        </label>
+        <p class="error" th:errors="${student.contactEmail}"></p>
+    </div>
+
+
+
+    <!--<div class="form-group">
+        <label th:for="${student.id}">Student Id
+            <input th:type="text" name="studentId" th:field="${student.id}" />
         </label>
     </div>
     <div class="form-group">
-        <label th:for="${studentfirstname}">First Name
-            <input th:type="text" name="studentfirstname" th:value="${studentfirstname}" />
+        <label th:for="${student.firstname}">First Name
+            <input th:type="text" name="studentfirstname" th:value="${student.firstname}" />
         </label>
         <p class="error" th:errors="${studentfirstname}"></p>
     </div>
     <div class="form-group">
-        <label th:for="${studentlastname}">Last Name
-            <input th:type="text" name="studentlastname" th:value="${studentlastname}" />
+        <label th:for="${student.lastname}">Last Name
+            <input th:type="text" name="studentlastname" th:value="${student.lastname}" />
         </label>
         <p class="error" th:errors="${studentlastname}"></p>
     </div>
     <div class="form-group">
-        <label th:for="${studentcontactemail}">Contact Email
-            <input th:type="text" name="studentcontactemail" th:value="${studentcontactemail}" />
+        <label th:for="${student.contactEmail}">Contact Email
+            <input th:type="text" name="studentcontactemail" th:value="${student.contactEmail}" />
         </label>
         <p class="error" th:errors="${studentcontactemail}"></p>
-    </div>
+    </div> -->
     <br>
     <div class="form-group">
         <input type="submit" value="Update" class="btn btn-success">
     </div>
 </form>
 <div>
-    <a th:href="@{'/students/'}">Back To Students</a>
+    <a th:href="@{'/students/'}"><button class="btn btn-primary" type="submit">Back To Books</button></a>
 </div>
 </body>
 </html>

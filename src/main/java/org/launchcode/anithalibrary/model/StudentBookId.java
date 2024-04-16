@@ -7,10 +7,10 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public class StudentBookId implements Serializable {
 
-    @Column(name="bookId")
+    @Column(name="Book_Id")
     private int studentId;
 
-    @Column(name="studentId")
+    @Column(name="Student_Id")
     private int bookId;
 
     public int getStudentId() {

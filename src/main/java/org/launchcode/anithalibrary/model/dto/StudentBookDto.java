@@ -1,26 +1,17 @@
-package org.launchcode.anithalibrary.model;
+package org.launchcode.anithalibrary.model.dto;
 
-import jakarta.persistence.*;
+import org.launchcode.anithalibrary.model.Student;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
-@Entity
-public class BookCheckout {
-    @Id
-    @GeneratedValue
-    private int id;
+public class StudentBookDto {
 
-    @ManyToOne
-    @JoinColumn(name="book_id")
-    private Book book;
+    private Integer bookId;
 
-    //private String  bookName;
-    //@ManyToOne
-    //@JoinColumn(name="student_id")
-    private int studentId;
-
-    //private String studentName;
+    private String bookName;
+    private Integer studentId;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date issueDate;
@@ -34,23 +25,19 @@ public class BookCheckout {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date heldUntilDate;
 
-    private boolean isCheckout;
-
-    private boolean isHold;
-
-    public BookCheckout() {
+    public Integer getBookId() {
+        return bookId;
     }
 
-    public int getId() {
-        return id;
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
-
-    public int getStudentId() {
+    public Integer getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 
@@ -78,22 +65,6 @@ public class BookCheckout {
         this.actualReturnDate = actualReturnDate;
     }
 
-    public boolean isCheckout() {
-        return isCheckout;
-    }
-
-    public void setCheckout(boolean checkout) {
-        isCheckout = checkout;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
     public Date getHeldUntilDate() {
         return heldUntilDate;
     }
@@ -102,11 +73,11 @@ public class BookCheckout {
         this.heldUntilDate = heldUntilDate;
     }
 
-    public boolean isHold() {
-        return isHold;
+    public String getBookName() {
+        return bookName;
     }
 
-    public void setHold(boolean isHold) {
-        this.isHold = isHold;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 }

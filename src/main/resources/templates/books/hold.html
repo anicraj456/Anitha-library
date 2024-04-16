@@ -8,26 +8,21 @@
 
 <p th:text="${errorMsg}" style="color:red;"></p>
 
-<form  method="post" action="/books/checkout">
+<form  method="post" action="/books/hold">
     <div class="form-group">
         <label>Book Id
             <input type="hidden" th:field="${studentBookDto.bookId}" class="form-control">
             <input type="text" th:field="${studentBookDto.bookName}" class="form-control">
         </label>
-
-            <select th:field="*{studentBookDto.studentId}">
-                <option value="">Select Student</option>
-                <option th:each="student : ${allstudents}" th:value="${student.id}" th:text="${student.lastname}"></option>
-            </select>
-
-
-
-
-        <label>Issue Date
+        <select th:field="*{studentBookDto.studentId}">
+            <option value="">Select Student</option>
+            <option th:each="student : ${allstudents}" th:value="${student.id}" th:text="${student.lastname}"></option>
+        </select>
+        <label>Hold Date
             <input type="date" th:field="${studentBookDto.issueDate}" class="form-control">
         </label>
-        <label>Expected Return Date
-            <input type="date" th:field="${studentBookDto.expectedReturnDate}" class="form-control">
+        <label>Hold valid until
+            <input type="date" th:field="${studentBookDto.heldUntilDate}" class="form-control">
         </label>
 
     </div>

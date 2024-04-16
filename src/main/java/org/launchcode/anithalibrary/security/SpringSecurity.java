@@ -43,20 +43,14 @@ public class SpringSecurity {
                                         .requestMatchers("/books/checkin/**").hasRole("ADMIN")
                                         //.requestMatchers("/books/view/**").hasRole("ADMIN")
                                         // for all student related URLs
-                                        /*.requestMatchers("/students/**").hasRole("ADMIN")
+                                        .requestMatchers("/landing").hasRole("ADMIN")
+                                        .requestMatchers("/students/**").hasRole("ADMIN")
+                                        .requestMatchers("/students/detail/**").hasRole("ADMIN")
                                         .requestMatchers("/students/search/**").hasRole("ADMIN")
                                         .requestMatchers("/students/detail/**").hasRole("ADMIN")
                                         .requestMatchers("/students/add/**").hasRole("ADMIN")
                                         .requestMatchers("/students/delete/**").hasRole("ADMIN")
-                                        .requestMatchers("/students/update/**").hasRole("ADMIN")*/
-                                        .requestMatchers("/landing").permitAll()
-                                        .requestMatchers("/students/**").permitAll()
-                                        .requestMatchers("/students/detail/**").permitAll()
-                                        .requestMatchers("/students/search/**").permitAll()
-                                        .requestMatchers("/students/detail/**").permitAll()
-                                        .requestMatchers("/students/add/**").permitAll()
-                                        .requestMatchers("/students/delete/**").permitAll()
-                                        .requestMatchers("/students/update/**").permitAll()
+                                        .requestMatchers("/students/update/**").hasRole("ADMIN")
 
                 ).formLogin(
                         form -> form

@@ -35,8 +35,32 @@
         <td th:text="${book.copies}"></td>
     </tr>
 </table>
+
+<p> students who has this book checked out</p>
+
+<table class="table table-striped">
+    <tr th:each="student : ${studentsbybook}">
+        <div th:if="${student.isCheckOut}">
+        <td th:text="${student.student.lastname}"></td>
+        </div>
+    </tr>
+
+</table>
+
+<p> students who has this book held </p>
+
+<table class="table table-striped">
+    <tr th:each="student : ${studentsbybook}">
+        <div th:if="${student.isHold}">
+            <td th:text="${student.student.lastname}"></td></div>
+    </tr>
+
+</table>
+
+
+
 <div>
-    <a th:href="@{'/books/'}">Back To Books</a>
+    <a th:href="@{'/books/'}"><button class="btn btn-primary" type="submit">Back To Books</button></a>
 </div>
 </body>
 </html>
