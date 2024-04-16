@@ -86,7 +86,6 @@ public class StudentController {
         return "students/view";
     }
 
-
     @GetMapping("add")
     public String renderCreateStudentForm(Model model){
         model.addAttribute("title", "Create Student");

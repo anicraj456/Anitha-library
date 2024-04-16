@@ -84,7 +84,7 @@ public class BookController {
         }//else throw error
         return "books/view";
     }
-
+    //teena code for books
     @GetMapping("/add") //http://localhost:8080/books/add
     public String displayAddBookForm(Model model) {
 
@@ -236,55 +236,7 @@ public class BookController {
         bookRepository.save(book);
         return "redirect:";
     }
-
-//Anitha code for hold a book
-    @GetMapping("hold/{bookId}") 
-    public String displayHold(@PathVariable("bookId")Integer bookId,Model model) {
-
-        Optional<Book> optionalBook = bookRepository.findById(bookId);
-        Book book = optionalBook.get();
-        StudentBookDto studentBookDto = new StudentBookDto();
-        studentBookDto.setBookId(bookId);
-        studentBookDto.setBookName(book.getName());
-        model.addAttribute("studentBookDto",studentBookDto);
-        model.addAttribute("allstudents",studentRepository.findAll());
-        return "books/hold";
-    }
-    //Anitha code for hold a book
-   @PostMapping("hold")
-    public String processHold(@ModelAttribute @Valid StudentBookDto studentBookDto,
-                              Errors errors, Model model) {
-       if (errors.hasErrors()) {
-           return "books/checkout";
-       }
-       int studentId = studentBookDto.getStudentId();
-       Optional<Book> result = bookRepository.findById(studentBookDto.getBookId());
-       Book book = result.get();
-       StudentBook studentBook = new StudentBook();
-       studentBook.setBook(book);
-       studentBook.setCheckOut(true);
-       Optional<Student> studentOptional = studentRepository.findById(studentId);
-       Student student = studentOptional.get();
-       StudentBookId studentBookId = new StudentBookId();
-       studentBookId.setBookId(book.getId());
-       studentBookId.setStudentId(student.getId());
-       studentBook.setId(studentBookId);
-       studentBook.setStudent(student);
-       studentBook.setBook(book);
-       studentBook.setIssueDate(studentBookDto.getIssueDate());
-       studentBook.setHeldUntilDate(studentBookDto.getHeldUntilDate());
-       studentBook.setCheckOut(false);
-       studentBook.setHold(true);
-       int availableCopies = book.getAvailableCopiesToIssue();
-       studentBookRepository.save(studentBook);
-       book.setAvailableCopiesToIssue(availableCopies--);
-       bookRepository.save(book);
-       return "redirect:";
-
-    }
-}
-
-/*teena new updated checkin and checkout
+    /*teena new updated checkin and checkout
 
 @GetMapping("checkout") //http://localhost:8080/books/checkout
     public String displayCheckout(Model model, int bookId){
@@ -339,3 +291,51 @@ public class BookController {
         return "redirect:";
     }
  */
+
+//Anitha code for hold a book
+    @GetMapping("hold/{bookId}") 
+    public String displayHold(@PathVariable("bookId")Integer bookId,Model model) {
+
+        Optional<Book> optionalBook = bookRepository.findById(bookId);
+        Book book = optionalBook.get();
+        StudentBookDto studentBookDto = new StudentBookDto();
+        studentBookDto.setBookId(bookId);
+        studentBookDto.setBookName(book.getName());
+        model.addAttribute("studentBookDto",studentBookDto);
+        model.addAttribute("allstudents",studentRepository.findAll());
+        return "books/hold";
+    }
+    //Anitha code for hold a book
+   @PostMapping("hold")
+    public String processHold(@ModelAttribute @Valid StudentBookDto studentBookDto,
+                              Errors errors, Model model) {
+       if (errors.hasErrors()) {
+           return "books/checkout";
+       }
+       int studentId = studentBookDto.getStudentId();
+       Optional<Book> result = bookRepository.findById(studentBookDto.getBookId());
+       Book book = result.get();
+       StudentBook studentBook = new StudentBook();
+       studentBook.setBook(book);
+       studentBook.setCheckOut(true);
+       Optional<Student> studentOptional = studentRepository.findById(studentId);
+       Student student = studentOptional.get();
+       StudentBookId studentBookId = new StudentBookId();
+       studentBookId.setBookId(book.getId());
+       studentBookId.setStudentId(student.getId());
+       studentBook.setId(studentBookId);
+       studentBook.setStudent(student);
+       studentBook.setBook(book);
+       studentBook.setIssueDate(studentBookDto.getIssueDate());
+       studentBook.setHeldUntilDate(studentBookDto.getHeldUntilDate());
+       studentBook.setCheckOut(false);
+       studentBook.setHold(true);
+       int availableCopies = book.getAvailableCopiesToIssue();
+       studentBookRepository.save(studentBook);
+       book.setAvailableCopiesToIssue(availableCopies--);
+       bookRepository.save(book);
+       return "redirect:";
+
+    }
+}
+
