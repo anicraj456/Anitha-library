@@ -40,3 +40,38 @@
 </body>
 </html>
 
+<!--<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header2"></header>-->
+
+<!--nav th:fragment="header1">
+    <h1 th:text="${title}">Student Management</h1>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="/students/add">Add Student</a></li>
+        <li class="nav-item"><a class="nav-link" href="/students/delete">Delete Student</a></li>
+        <li class="nav-item"><a class="nav-link" href="/students/search">Search Student</a></li>
+    </ul>
+</nav-->
+
+<!--<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Contact Email</th>
+    </tr>
+    </thead>
+    <tr th:each="student : ${students}">
+        <td><a th:text="${student.id}" th:href="'/students?studentId=' + ${student.id}"></a></td>
+        <td th:text="${student.firstname}"></td>
+        <td th:text="${student.lastname}"></td>
+        <td th:text="${student.contactEmail}"></td>
+    </tr>
+</table>
+
+</body>
+</html>-->

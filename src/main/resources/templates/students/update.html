@@ -73,3 +73,43 @@
 </div>
 </body>
 </html>
+
+<!--<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header2"></header>
+<form th:action="@{/students/update}" method="post">
+    <div class="form-group">
+        <label th:for="${studentId}">Student Id
+            <input th:type="text" name="studentId" th:value="${studentId}" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label th:for="${studentfirstname}">First Name
+            <input th:type="text" name="studentfirstname" th:value="${studentfirstname}" />
+        </label>
+        <p class="error" th:errors="${studentfirstname}"></p>
+    </div>
+    <div class="form-group">
+        <label th:for="${studentlastname}">Last Name
+            <input th:type="text" name="studentlastname" th:value="${studentlastname}" />
+        </label>
+        <p class="error" th:errors="${studentlastname}"></p>
+    </div>
+    <div class="form-group">
+        <label th:for="${studentcontactemail}">Contact Email
+            <input th:type="text" name="studentcontactemail" th:value="${studentcontactemail}" />
+        </label>
+        <p class="error" th:errors="${studentcontactemail}"></p>
+    </div>
+    <br>
+  <div class="form-group">
+        <input type="submit" value="Update" class="btn btn-success">
+    </div>
+</form>
+
+
+</body>
+</html>-->

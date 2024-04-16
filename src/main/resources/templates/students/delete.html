@@ -25,3 +25,27 @@
 </div>
 </body>
 </html>
+
+<!--<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header2"></header>
+
+<form method="post">
+
+   <th:block th:each="student : ${students}">
+      <div>
+         <label>
+            <span th:text="${student.firstname}"></span>
+            <input type="checkbox" name="StudentIds" th:value="${student.id}" class="form-control">
+         </label>
+      </div><br>
+   </th:block>
+
+   <input type="submit" value="Delete" class="btn btn-danger">
+</form>
+
+</body>
+</html>-->

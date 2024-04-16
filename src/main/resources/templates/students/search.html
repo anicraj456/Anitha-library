@@ -69,3 +69,44 @@
 </div>
 </body>
 </html>
+
+<!--<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header2"></header>-->
+
+<!--div class="container body-content"-->
+
+<!--h1 th:text="${#strings.capitalizeWords(title)}"></h1-->
+
+<!--<form th:action="@{/students/search/update}" method = "post">
+    <h2>Search by:</h2>
+
+    <p>
+            <span th:each="column : ${columns}">
+                <input
+                        type="radio"
+                        name="searchType"
+                        th:id="${column.key}"
+                        th:value="${column.key}"
+                        th:checked="${column.key == 'all'}"/>
+                <label th:for="${column.key}" th:text="${column.value}"></label>
+            </span>
+
+    </p>
+
+    <p>
+        <label th:for="${searchTerm}">Keyword:</label>
+        <input th:type="text" name="searchTerm" value="" />
+    </p>
+
+    <input type="submit" value="Search" />
+</form>
+<p th:text="${error}" class="error"></p>
+
+<hr />
+
+</body>
+</html>-->
