@@ -53,12 +53,15 @@
 <nav th:fragment="header1">
     <h1 th:text="${title}"></h1>
     <ul class="nav">
-        <li class="nav-item"><a class="nav-link" href="/user">User Management</a></li>
-        <li class="nav-item"><a class="nav-link" href="/book">Book Management</a></li>
+        <li class="nav-item"><a class="nav-link" href="/user">User Management</a></li>//need to delete
+        <li class="nav-item"><a class="nav-link" href="/book">Book Management</a></li>//need to delete
+        <li class="nav-item"><a class="nav-link" th:href="@{/books/}">Book Management</a></li>//add this
         <li class="nav-item"><a class="nav-link" href="/checkout">Checkout Book</a></li>
         <li class="nav-item"><a class="nav-link" href="/checkin">Checkin Book</a></li>
         <li class="nav-item"><a class="nav-link" href="/students">Student Management</a></li>
         <li class="nav-item"><a class="nav-link" href="/booksinfo">Book Information</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Logout</a></li>//add this
+
     </ul>
 </nav>
 
