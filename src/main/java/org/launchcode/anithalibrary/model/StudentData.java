@@ -36,6 +36,8 @@ public class StudentData {
         String theValue="";
         if (fieldName.equals("lastname")) {
             theValue = student.getLastname();
+        } else if (fieldName.equals("firstname")) {
+            theValue = student.getFirstname();
         } else if (fieldName.equals("email")) {
             theValue = student.getContactEmail();
         }
@@ -56,6 +58,8 @@ public class StudentData {
         for (Student student : allStudents) {
 
             if (student.getLastname().toLowerCase().contains(value.toLowerCase())) {
+                results.add(student);
+            } else if (student.getFirstname().toLowerCase().contains(value.toLowerCase())) {
                 results.add(student);
             } else if (null !=student.getContactEmail() && student.getContactEmail().toString().toLowerCase().contains(value.toLowerCase())) {
                 results.add(student);

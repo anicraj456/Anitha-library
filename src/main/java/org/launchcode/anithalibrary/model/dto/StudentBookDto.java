@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 public class StudentBookDto {
-
     private Integer bookId;
 
     private String bookName;

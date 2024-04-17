@@ -30,6 +30,8 @@ public class StudentController {
         studentSearchOptions.put("all", "All");
         studentSearchOptions.put("email", "Email");
         studentSearchOptions.put("lastname", "Student Last Name");
+        studentSearchOptions.put("firstname", "Student First Name");
+
     }
 
     @GetMapping("/")
