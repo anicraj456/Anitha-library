@@ -190,6 +190,8 @@ public class BookController {
     @PostMapping("delete") //http://localhost:8080/books/delete?bookId=xxxx
     public String processDeleteBook(@RequestParam(required = true) Integer bookId) {
         if (bookId != null) {
+            //Anitha: add one line code to remove the hold if there is a hold already on the book by the student
+            removeHoldWhileCheckingOut(bookId);
             bookRepository.deleteById(bookId);
         }
         return "redirect:";
@@ -310,7 +312,8 @@ public class BookController {
     public String processHold(@ModelAttribute @Valid StudentBookDto studentBookDto,
                               Errors errors, Model model) {
        if (errors.hasErrors()) {
-           return "books/checkout";
+           return "books/hold";
+           //return "books/checkout";
        }
        int studentId = studentBookDto.getStudentId();
        Optional<Book> result = bookRepository.findById(studentBookDto.getBookId());
@@ -335,6 +338,16 @@ public class BookController {
        book.setAvailableCopiesToIssue(availableCopies--);
        bookRepository.save(book);
        return "redirect:";
+    }
+    //Anitha code for deleting book on hold
+    //gets all record from studentBook and check if bookId is equals to getBook and getId then it will delete that book
+    private void removeHoldWhileCheckingOut(int bookId){
+        Iterable<StudentBook> studentBookList = studentBookRepository.findAll();
+        for (StudentBook studentBook : studentBookList){
+            if(studentBook.getBook().getId() == bookId){
+                studentBookRepository.delete(studentBook);
+            }
+        }
 
     }
 }
